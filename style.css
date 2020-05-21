@@ -4,8 +4,8 @@ Theme URI: http://www.elegantthemes.com/gallery/divi
 Description: Divi child theme via FreshySites
 Author: FreshySites
 Author URI: https://freshysites.com/
-Template:  Divi
-Version: 1.1.1
+Template: Divi
+Version: 1.4.2
 */
 /* Add your own styles at the bottom */
 
@@ -120,6 +120,11 @@ h1.tertiary, h2.tertiary, h3.tertiary, h4.tertiary, h5.tertiary, h6.tertiary, li
 #top-menu .menu-item-has-children .menu-item-has-children > a:first-child::after, 
 #et-secondary-nav .menu-item-has-children .menu-item-has-children > a:first-child::after {
 	content: '5';	
+}
+
+/* if parent link of child menu is a deadlink, then make it not clickable */
+#main-header #mobile_menu.et_mobile_menu .menu-item-has-children > a[href="#0"] { 
+	pointer-events: none;
 }
 
 /* - mobile menu toggling elements, injected via jQuery - */
@@ -238,11 +243,11 @@ h1.tertiary, h2.tertiary, h3.tertiary, h4.tertiary, h5.tertiary, h6.tertiary, li
 #freshy_copyright a.copyright_fs {
 	display: block;
 	vertical-align: middle;
-	width: 45px;
+	width: 42px;
 	height: 20px;
-	background-image: url("/wp-content/uploads/freshysites-logo-white.svg");
+	background-image: url("/wp-content/uploads/fs-lettermark-white.svg");
 	background-repeat: no-repeat;
-	background-size: 45px 20px;
+	background-size: 42px 20px;
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -300,15 +305,15 @@ h1.tertiary, h2.tertiary, h3.tertiary, h4.tertiary, h5.tertiary, h6.tertiary, li
 /* -- CHECKLIST -- */
 
 .checklist ul {
-    margin: 0;
+	margin: 0;
 	padding: 0 !important;
-    list-style: none;
+	list-style: none;
 }
 
 .checklist ul li {
-    position: relative;
-    padding-left: 30px;
-    margin: 0 0 6px !important;
+	position: relative;
+	padding-left: 30px;
+	margin: 0 0 6px !important;
 }
 
 .checklist-columns-2 ul li,
@@ -344,7 +349,7 @@ h1.tertiary, h2.tertiary, h3.tertiary, h4.tertiary, h5.tertiary, h6.tertiary, li
 	.checklist-columns-4 ul li {
 		float: left;
 		width: 50%;
-      	padding-right: 30px;
+		padding-right: 30px;
 	}
 	.checklist-columns-2 ul li:nth-child(odd),
 	.checklist-columns-3 ul li:nth-child(odd),
@@ -410,35 +415,35 @@ h1.tertiary, h2.tertiary, h3.tertiary, h4.tertiary, h5.tertiary, h6.tertiary, li
 }
 
 .checklist ul li::before {
-    font-family: 'FontAwesome';
-    content: '\f058';
-    width: 20px;
-    margin: 0;
-    display: inline-block;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #32a709;
-    /* set font size helps make icon sharper */
-    font-size: 22px;
+	font-family: 'ETModules';
+	content: '\f058';
+	width: 20px;
+	margin: 0;
+	display: inline-block;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #32a709;
+	/* set font size helps make icon sharper */
+	font-size: 22px;
 	font-weight: normal;
 }
 
 .pluslist ul li::before {
-    content: '\f055';
+	content: '\f055';
 }
 .eventlist ul li::before {
-    content: '\f274';
+	content: '\f274';
 }
 .locationlist ul li::before {
-    content: '\f041';
+	content: '\f041';
 }
 .externallist ul li::before {
 	content: '\f14c';	
 }
 .pdflist ul li::before {
-    content: '\f1c1';
+	content: '\f1c1';
 	color: red;
 }
 .userlist ul li::before {
@@ -456,10 +461,12 @@ h1.tertiary, h2.tertiary, h3.tertiary, h4.tertiary, h5.tertiary, h6.tertiary, li
 }
 
 /* Divi was turning off bottom padding on last paragraphs, when it should be only if it's the last child */
-p:last-of-type {
+p:last-of-type,
+p:not(.has-background):last-of-type {
 	padding-bottom: 1em;
 }
-p:last-child {
+p:last-child,
+p:not(.has-background):last-child {
 	padding-bottom: 0;
 }
 
@@ -520,53 +527,68 @@ img.gform_ajax_spinner[src$=".png"] {
 /* -- HELPERS -- */
 
 /* use the "fullwidth-section" class on a SECTION to make a "standard" SECTION truly be fullwidth 
-(NOTE: the ROW module settings needs to be set to fullwidth, and the SECTION needs THIS class) */
+(NOTE: the SECTION needs THIS class) */
 .fullwidth-section.et_pb_section {
 	padding: 0;
 }
-.fullwidth-section.et_pb_section > .et_pb_row.et_pb_row_fullwidth {
+.fullwidth-section.et_pb_section > .et_pb_row {
 	width: 100% !important;
 	max-width: 100% !important;
 	padding: 0;
 }
 
 /* use the "fullwidth-row" class on a SECTION to make a "full width" ROW truly be fullwidth 
-(NOTE: the ROW module settings needs to be set to fullwidth, with no gutters, and the SECTION needs THIS class,
+(NOTE: the ROW module settings needs to be Gutter Width 1, and the SECTION needs THIS class,
 and unlike the class above, THIS class will auto-add padding to the columns) */
 .fullwidth-row.et_pb_section {
 	padding: 0;	
 }
-.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth {
+.fullwidth-row.et_pb_section .et_pb_row {
 	width: 100% !important;
 	max-width: 100% !important;
 	margin: 0 !important;
 	padding: 0 !important;
 }
 /* helps add padding to each column */
-.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth > .et_pb_column {
+.fullwidth-row.et_pb_section .et_pb_row > .et_pb_column {
 	padding: 50px 10%;
 }
 @media (min-width: 767px) {
-	.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth > .et_pb_column {
+	.fullwidth-row.et_pb_section .et_pb_row > .et_pb_column {
 		padding: 80px 6%;
 	}
 }
 /* for some reason Divi removes bottom margin from modules if in column with no gutters, 
 so we need to add margins back */
-.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth.et_pb_gutters1 > .et_pb_column .et_pb_module:not(:last-child) {
+.fullwidth-row.et_pb_section .et_pb_row.et_pb_gutters1 > .et_pb_column .et_pb_module:not(:last-child) {
 	margin-bottom: 30px;
 }
 @media (min-width: 981px) {
-	.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth.et_pb_gutters1 > .et_pb_column_2_3 .et_pb_module:not(:last-child) {
+	.fullwidth-row.et_pb_section .et_pb_row.et_pb_gutters1 > .et_pb_column_2_3 .et_pb_module:not(:last-child) {
 		margin-bottom: 4.242%;
 	}
-	.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth.et_pb_gutters1 > .et_pb_column_1_3 .et_pb_module:not(:last-child) {
+	.fullwidth-row.et_pb_section .et_pb_row.et_pb_gutters1 > .et_pb_column_1_3 .et_pb_module:not(:last-child) {
 		margin-bottom: 9.27%;
 	}	
 }
 /* reduce gap between toggles if in fullwidth row */
-.fullwidth-row.et_pb_section .et_pb_row.et_pb_row_fullwidth.et_pb_gutters1 > .et_pb_column .et_pb_module.et_pb_toggle:not(:last-child) {
+.fullwidth-row.et_pb_section .et_pb_row.et_pb_gutters1 > .et_pb_column .et_pb_module.et_pb_toggle:not(:last-child) {
 	margin-bottom: 3px;
 }
 
 /* -- END HELPERS -- */
+
+/* -- BLOG -- */
+
+/* sidebar recent posts */
+.et_pb_widget.widget_recent_entries ul li  {
+	margin-bottom: 1em;
+}
+
+/* sidebar recent posts dates */
+.et_pb_widget.widget_recent_entries ul li span.post-date {
+	display: table;
+	font-size: 0.85em;
+}
+
+/* -- END BLOG -- */
